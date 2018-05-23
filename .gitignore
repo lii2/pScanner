@@ -1,0 +1,14 @@
+.idea/
+.mvn/
+D__/
+.gradle/
+build/
+.DS_Store
+trade.iml
+trade.ipr
+trade.iws
+dependencies.txt
+out/
+application.properties
+configuration.properties
+phonenumbers.json
