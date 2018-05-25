@@ -81,7 +81,7 @@ public class EmailClient {
             for (Map.Entry<String, ChildData> entry : newPosts.entrySet()) {
                 System.out.println("Found new Run: " + entry.getValue().getTitle() + " " + entry.getValue().getURL());
                 send(getAllAddresses(),
-                        entry.getValue().getTitle(), entry.getValue().getURL());
+                        entry.getValue().getTitle() + ": " + entry.getValue().getNum_comments(), entry.getValue().getURL());
             }
 
     }

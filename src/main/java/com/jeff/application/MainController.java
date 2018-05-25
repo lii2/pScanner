@@ -10,7 +10,7 @@ public class MainController {
 
     @RequestMapping("/")
     public String index() {
-        return "pScanner server is running " + new Date().toString();
+        return "personal Scanner server is running " + new Date().toString();
     }
 
 }

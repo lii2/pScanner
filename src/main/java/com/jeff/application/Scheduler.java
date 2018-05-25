@@ -23,11 +23,14 @@ public class Scheduler {
     // Every minute
     @Scheduled(fixedDelay = 60000)
     public void run() {
-
-        if (isRightTime()) {
-            searchAndNotify();
+        try {
+            if (isRightTime()) {
+                searchAndNotify();
+            }
+        } catch (Exception e) {
+            System.out.println("Unknown error");
+            e.printStackTrace();    
         }
-
     }
 
     private void searchAndNotify() {

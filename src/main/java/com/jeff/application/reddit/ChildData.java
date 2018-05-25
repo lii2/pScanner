@@ -11,6 +11,8 @@ public class ChildData {
 
     private String URL;
 
+    private int num_comments;
+
     public String getSelftext() {
         return selftext;
     }
@@ -35,12 +37,22 @@ public class ChildData {
         this.URL = URL;
     }
 
+    public int getNum_comments() {
+        return num_comments;
+    }
+
+    public void setNum_comments(int num_comments) {
+        this.num_comments = num_comments;
+    }
+
+
     @Override
     public String toString() {
         return "ChildData{" +
                 "selftext='" + selftext + '\'' +
                 ", title='" + title + '\'' +
                 ", URL='" + URL + '\'' +
+                ", num_comments=" + num_comments +
                 '}';
     }
 }
