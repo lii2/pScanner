@@ -29,7 +29,7 @@ public class Scheduler {
             }
         } catch (Exception e) {
             System.out.println("Unknown error");
-            e.printStackTrace();    
+            e.printStackTrace();
         }
     }
 
