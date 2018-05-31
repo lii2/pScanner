@@ -16,7 +16,7 @@ public class RedditClient {
 
     public static final String RUNNING_QUERY = "https://www.reddit.com/r/RobinHoodPennyStocks/search.json?q=running&restrict_sr=on&sort=new&t=day";
 
-    public static final String RUN_QUERY = "https://www.reddit.com/r/RobinHoodPennyStocks/search.json?q=a+run&restrict_sr=on&sort=new&t=day";
+    public static final String HALTED_QUERY = "https://www.reddit.com/r/RobinHoodPennyStocks/search.json?q=halted&restrict_sr=on&sort=new&t=day";
 
     private HashMap<String, ChildData> newPosts;
     private RestTemplate restTemplate;
@@ -34,7 +34,7 @@ public class RedditClient {
 
     public void searchPennyStockData() {
         addNewPosts(RUNNING_QUERY);
-        //addNewPosts(RUN_QUERY);
+        addNewPosts(HALTED_QUERY);
     }
 
     private void addNewPosts(String query) {
