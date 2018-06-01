@@ -24,9 +24,8 @@ public class Scheduler {
     @Scheduled(fixedDelay = 60000)
     public void run() {
         try {
-            if (isRightTime()) {
-                searchAndNotify();
-            }
+            searchAndNotify();
+
         } catch (Exception e) {
             System.out.println("Unknown error");
             e.printStackTrace();
@@ -35,7 +34,9 @@ public class Scheduler {
 
     private void searchAndNotify() {
         redditClient.searchPennyStockData();
-        if (!redditClient.getNewPosts().isEmpty() && notificationsSent < 5) {
+        if (!redditClient.getNewPosts().isEmpty()
+                && notificationsSent < 5
+                && isRightTime()) {
             emailClient.sendNotifications(redditClient.getNewPosts());
             notificationsSent++;
         }
