@@ -2,7 +2,6 @@ package com.jeff.application;
 
 import com.jeff.application.email.EmailClient;
 import com.jeff.application.reddit.RedditClient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -24,8 +23,12 @@ public class Scheduler {
     @Scheduled(fixedDelay = 60000)
     public void run() {
         try {
-            searchAndNotify();
-
+            if (isPreMarket()) {
+                preScan();
+            }
+            if (isRightHourAndDay()) {
+                searchAndNotify();
+            }
         } catch (Exception e) {
             System.out.println("Unknown error");
             e.printStackTrace();
@@ -35,20 +38,34 @@ public class Scheduler {
     private void searchAndNotify() {
         redditClient.searchPennyStockData();
         if (!redditClient.getNewPosts().isEmpty()
-                && notificationsSent < 5
-                && isRightTime()) {
+                && notificationsSent < 5) {
             emailClient.sendNotifications(redditClient.getNewPosts());
             notificationsSent++;
         }
         redditClient.agePosts();
     }
 
-    private boolean isRightTime() {
+    private boolean isRightHourAndDay() {
         calNewYork = Calendar.getInstance();
         calNewYork.setTimeZone(TimeZone.getTimeZone("America/New_York"));
         int hour = calNewYork.get(Calendar.HOUR_OF_DAY);
         int day = calNewYork.get(Calendar.DAY_OF_WEEK);
-        return (hour > 9 && hour < 16) && (day != 1 && day != 7);
+        int minute = calNewYork.get(Calendar.MINUTE);
+        return (((hour == 9 && minute > 30) || hour > 9)
+                && hour < 16) && (day != 1 && day != 7);
+    }
+
+    private void preScan() {
+        redditClient.searchPennyStockData();
+        redditClient.agePosts();
+    }
+
+    private boolean isPreMarket() {
+        calNewYork = Calendar.getInstance();
+        calNewYork.setTimeZone(TimeZone.getTimeZone("America/New_York"));
+        int hour = calNewYork.get(Calendar.HOUR_OF_DAY);
+        int minute = calNewYork.get(Calendar.MINUTE);
+        return (hour == 9 && minute < 30);
     }
 
     public static void main(String[] args) {
