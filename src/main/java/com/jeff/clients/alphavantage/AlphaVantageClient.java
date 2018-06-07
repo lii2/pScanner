@@ -30,14 +30,12 @@ import org.apache.http.impl.client.HttpClients;
 
 public class AlphaVantageClient implements Client {
 
-    private HashMap<String, ChildData> newPosts;
     private RestTemplate restTemplate;
     private HttpEntity<String> entity;
     private ObjectMapper mapper;
     private List<String> oldPosts;
 
     public AlphaVantageClient() {
-        newPosts = new HashMap<>();
         try {
             restTemplate = getRestTemplate();
         } catch (Exception e) {
@@ -50,14 +48,14 @@ public class AlphaVantageClient implements Client {
 
     public void checkFiveDaySma() {
         String query = AlphaVantageRequestBuilder.aRequest().build();
-        System.out.println(query);
+       // System.out.println(query);
 
         ResponseEntity result = restTemplate.exchange(query, HttpMethod.GET, entity, String.class);
 
         try {
             //JSON from String to Object
             //  redditResult = mapper.readValue(result.getBody().toString(), RedditResult.class);
-            System.out.println(result.getBody().toString());
+            System.out.println("alpha vantage query complete");
         } catch (Exception e) {
             System.out.println("IOException thrown while mapping");
             e.printStackTrace();
@@ -89,7 +87,6 @@ public class AlphaVantageClient implements Client {
         CloseableHttpClient httpClient = HttpClients.custom().setSSLSocketFactory(csf).build();
         HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
         requestFactory.setHttpClient(httpClient);
-        RestTemplate restTemplate = new RestTemplate(requestFactory);
-        return restTemplate;
+        return new RestTemplate(requestFactory);
     }
 }

@@ -21,11 +21,16 @@ sourceCompatibility = 1.8
 
 bootJar {
     baseName = 'pScanner'
-    version =  '0.1.0'
+    version = '0.1.0'
 }
 
 repositories {
     mavenCentral()
+}
+
+configurations.all {
+    // org.apache.logging.log4j:log4j-to-slf4j:2.10.0
+    // exclude group: 'org.apache.logging.log4j', module: 'log4j-to-slf4j'
 }
 
 dependencies {
