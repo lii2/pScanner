@@ -1,17 +1,21 @@
-package com.jeff.application.reddit;
+package com.jeff.clients.reddit;
 
-public class Children
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class RedditResult
 {
-    private ChildData data;
+
+    private Data data;
 
     private String kind;
 
-    public ChildData getData ()
+    public Data getData ()
     {
         return data;
     }
 
-    public void setData (ChildData data)
+    public void setData (Data data)
     {
         this.data = data;
     }
@@ -32,3 +36,4 @@ public class Children
         return "ClassPojo [data = "+data+", kind = "+kind+"]";
     }
 }
+

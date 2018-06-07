@@ -1,4 +1,4 @@
-package com.jeff.application.email;
+package com.jeff.clients.email;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

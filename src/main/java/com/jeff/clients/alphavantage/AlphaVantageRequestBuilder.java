@@ -1,4 +1,4 @@
-package com.jeff.application.alphavantage;
+package com.jeff.clients.alphavantage;
 
 import com.jeff.application.configuration.ConfigConstants;
 

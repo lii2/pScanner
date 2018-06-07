@@ -1,13 +1,14 @@
-package com.jeff.application.email;
+package com.jeff.clients.email;
 
 import com.jeff.application.configuration.ConfigConstants;
-import com.jeff.application.reddit.ChildData;
+import com.jeff.clients.Client;
+import com.jeff.clients.reddit.ChildData;
 
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 
-public class EmailClient {
+public class EmailClient implements Client {
 
     private Properties props;
 

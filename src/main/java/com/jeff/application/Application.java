@@ -8,7 +8,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 
 @SpringBootApplication
 @ComponentScan("com.jeff.application")
-@ComponentScan("com.jeff.application.reddit")
+@ComponentScan("com.jeff.clients.reddit")
 @EnableScheduling
 public class Application {
 

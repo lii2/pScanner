@@ -1,7 +1,7 @@
 package com.jeff.application.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jeff.application.email.PhoneNumberList;
+import com.jeff.clients.email.PhoneNumberList;
 
 import java.io.*;
 import java.nio.file.Files;

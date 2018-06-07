@@ -1,7 +1,8 @@
-package com.jeff.application.alphavantage;
+package com.jeff.clients.alphavantage;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jeff.application.reddit.ChildData;
+import com.jeff.clients.Client;
+import com.jeff.clients.reddit.ChildData;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -12,17 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.HashMap;
 import java.util.List;
 
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.URL;
-import java.net.URLConnection;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
 import java.security.cert.X509Certificate;
 
 import java.security.KeyManagementException;
@@ -35,11 +26,9 @@ import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.TrustStrategy;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.web.client.RestTemplate;
 
 
-public class AlphaVantageClient {
+public class AlphaVantageClient implements Client {
 
     private HashMap<String, ChildData> newPosts;
     private RestTemplate restTemplate;

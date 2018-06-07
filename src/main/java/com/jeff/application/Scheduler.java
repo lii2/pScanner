@@ -1,7 +1,7 @@
 package com.jeff.application;
 
-import com.jeff.application.email.EmailClient;
-import com.jeff.application.reddit.RedditClient;
+import com.jeff.clients.email.EmailClient;
+import com.jeff.clients.reddit.RedditClient;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 

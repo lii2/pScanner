@@ -1,4 +1,4 @@
-package com.jeff.application.email;
+package com.jeff.clients.email;
 
 public enum Carrier {
 
