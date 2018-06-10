@@ -145,11 +145,15 @@ public class Converter {
     public static void addOldPost(String postTitle) {
         try {
             postTitle = postTitle + "\n";
-            Files.write(Paths.get("oldPosts.txt"), postTitle.getBytes() , StandardOpenOption.APPEND);
+            Files.write(Paths.get("oldPosts.txt"), postTitle.getBytes(), StandardOpenOption.APPEND);
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
         } catch (IOException e) {
             System.out.println("Error initializing stream");
         }
+    }
+
+    public static void main(String[] args) {
+        System.out.println(getPhoneNumberList().getPhoneNumbers().length);
     }
 }

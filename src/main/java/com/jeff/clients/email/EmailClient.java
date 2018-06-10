@@ -86,4 +86,10 @@ public class EmailClient implements Client {
             }
 
     }
+
+    public void sendNotification(Map.Entry<String, ChildData> entry){
+        System.out.println("Found new Run: " + entry.getValue().getTitle() + " " + entry.getValue().getURL());
+        send(getAllAddresses(),
+                entry.getValue().getTitle() + ": " + entry.getValue().getNum_comments(), entry.getValue().getURL());
+    }
 }

@@ -18,6 +18,8 @@ public class RedditClient implements Client {
 
     public static final String HALTED_QUERY = "https://www.reddit.com/r/RobinHoodPennyStocks/search.json?q=halted&restrict_sr=on&sort=new&t=day";
 
+    public static final String TEST_QUERY = "https://www.reddit.com/r/RobinHoodPennyStocks/search.json?q=moon&restrict_sr=on&include_over_18=on&sort=relevance&t=all";
+
     private HashMap<String, ChildData> newPosts;
     private RestTemplate restTemplate;
     private HttpEntity<String> entity;
@@ -73,6 +75,11 @@ public class RedditClient implements Client {
         }
         newPosts.clear();
         oldPosts = Converter.getOldPosts();
+    }
+
+    public void preScan() {
+        searchPennyStockData();
+        agePosts();
     }
 
 }
