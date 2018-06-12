@@ -5,6 +5,8 @@ import com.jeff.application.timing.CalenderUtils;
 import com.jeff.clients.email.EmailClient;
 import com.jeff.clients.reddit.ChildData;
 import com.jeff.clients.reddit.RedditClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +15,8 @@ import java.util.Map;
 
 @Component
 public class Scheduler {
+
+    Logger logger = LoggerFactory.getLogger("scheduler");
 
     private RedditClient redditClient = new RedditClient();
 
@@ -26,13 +30,12 @@ public class Scheduler {
         try {
             if (CalenderUtils.isPreMarket()) {
                 redditClient.preScan();
-            }
-            if (CalenderUtils.isRightHourAndDay()) {
+            } else if (CalenderUtils.isRightHourAndDay()) {
                 searchAndNotify();
             }
         } catch (Exception e) {
             System.out.println("Unknown error");
-            e.printStackTrace();
+            logger.error("Unknown Error", e);
         }
     }
 
@@ -50,7 +53,7 @@ public class Scheduler {
 
     public static void main(String[] args) {
         Scheduler scheduler = new Scheduler();
-        scheduler.searchAndNotify();
+        scheduler.run();
     }
 
 }
