@@ -1,7 +1,6 @@
 .idea/
 .mvn/
 D__/
-.gradle/
 build/
 .DS_Store
 trade.iml
