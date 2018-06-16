@@ -10,4 +10,8 @@ public class ConfigConstants {
 
     public static final String ALPHAVANTAGE_API_KEY = Converter.getProperty("alphavantage.key");
 
+    public static final String TEST_EMAIL = Converter.getProperty("testEmail");
+
+    public static final String TEST_TOKEN = Converter.getProperty("testToken");
+
 }

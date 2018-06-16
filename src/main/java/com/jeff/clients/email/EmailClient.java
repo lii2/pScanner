@@ -21,7 +21,7 @@ public class EmailClient implements Client {
 
     }
 
-    private void send(String address, String subject, String body) {
+    public void send(String address, String subject, String body) {
 
         Session session = Session.getInstance(props,
                 new javax.mail.Authenticator() {
