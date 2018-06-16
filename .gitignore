@@ -2,6 +2,7 @@
 .mvn/
 D__/
 build/
+.gradle/
 .DS_Store
 trade.iml
 trade.ipr
