@@ -21,15 +21,11 @@ public class RedditClient implements Client {
     public static final String TEST_QUERY = "https://www.reddit.com/r/RobinHoodPennyStocks/top/.json?limit=1";
 
     private HashMap<String, ChildData> newPosts;
-    private RestTemplate restTemplate;
-    private HttpEntity<String> entity;
     private ObjectMapper mapper;
     private List<String> oldPosts;
 
     public RedditClient() {
         newPosts = new HashMap<>();
-        restTemplate = new RestTemplate();
-        entity = createEntity();
         mapper = new ObjectMapper();
         oldPosts = Converter.getOldPosts();
     }
@@ -40,6 +36,8 @@ public class RedditClient implements Client {
     }
 
     private void addNewPosts(String query) {
+        HttpEntity<String> entity = createEntity();
+        RestTemplate restTemplate = new RestTemplate();
         ResponseEntity result = restTemplate.exchange(query, HttpMethod.GET, entity, String.class);
         RedditResult redditResult = new RedditResult();
 
@@ -60,6 +58,8 @@ public class RedditClient implements Client {
     }
 
     public String runQuery(String query){
+        HttpEntity<String> entity = createEntity();
+        RestTemplate restTemplate = new RestTemplate();
         ResponseEntity result = restTemplate.exchange(query, HttpMethod.GET, entity, String.class);
 
         return result.getBody().toString();

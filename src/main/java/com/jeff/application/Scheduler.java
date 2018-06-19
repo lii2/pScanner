@@ -41,12 +41,21 @@ public class Scheduler {
 
     private void searchAndNotify() {
         redditClient.searchPennyStockData();
-        if (!redditClient.getNewPosts().isEmpty())
+
+        if (!redditClient.getNewPosts().isEmpty()){
+            logger.info(new Date().toString() + " new posts found: ");
+
             for (Map.Entry<String, ChildData> entry : redditClient.getNewPosts().entrySet()) {
+
+                logger.info(entry.getKey());
+
                 if (rateLimiter.attemptAction(new Date())) {
                     emailClient.sendNotification(entry);
                 }
+
             }
+        }
+
         redditClient.agePosts();
     }
 
