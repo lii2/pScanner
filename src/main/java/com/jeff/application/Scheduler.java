@@ -31,7 +31,6 @@ public class Scheduler {
             if (CalenderUtils.isPreMarket()) {
                 redditClient.preScan();
             } else if (CalenderUtils.isRightHourAndDay()) {
-                logger.info("logging test");
                 searchAndNotify();
             }
         } catch (Exception e) {
