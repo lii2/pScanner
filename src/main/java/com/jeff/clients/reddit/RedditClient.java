@@ -55,8 +55,8 @@ public class RedditClient implements Client {
             e.printStackTrace();
         } catch (HttpServerErrorException e) {
             Date date = new Date();
-            System.out.println("HttpServerErrorException: " + date.toString());
-            logger.error("HttpServerErrorException: " + date.toString(), e);
+            System.out.println("HttpServerErrorException: " + query + " " + date.toString());
+            logger.error("HttpServerErrorException: " + query + " " + date.toString(), e);
             e.printStackTrace();
         }
 
