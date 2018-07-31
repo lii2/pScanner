@@ -2,6 +2,7 @@ package com.jeff.application;
 
 import com.jeff.clients.email.EmailClient;
 import com.jeff.clients.reddit.RedditClient;
+import com.jeff.clients.reddit.RedditQueries;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +28,7 @@ public class MainController {
 
         RedditClient redditClient = new RedditClient();
 
-        String redditResult = redditClient.runQuery(RedditClient.TEST_QUERY);
+        String redditResult = redditClient.runQuery(RedditQueries.TEST_QUERY);
 
         EmailClient emailClient = new EmailClient();
 

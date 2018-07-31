@@ -34,8 +34,9 @@ public class Scheduler {
                 searchAndNotify();
             }
         } catch (Exception e) {
-            System.out.println("Unknown error");
-            logger.error("Unknown Error", e);
+            Date date = new Date();
+            System.out.println("Unknown error: " + date.toString());
+            logger.error("Unknown Error: " + date.toString(), e);
         }
     }
 
