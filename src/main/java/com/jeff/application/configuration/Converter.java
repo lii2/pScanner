@@ -119,25 +119,18 @@ public class Converter {
             while ((sCurrentLine = br.readLine()) != null) {
                 oldPosts.add(sCurrentLine);
             }
-
         } catch (IOException ex) {
             ex.printStackTrace();
         } finally {
 
             try {
-
                 if (br != null)
                     br.close();
-
                 if (fr != null)
                     fr.close();
-
             } catch (IOException ex) {
-
                 ex.printStackTrace();
-
             }
-
             return oldPosts;
         }
     }
@@ -153,7 +146,4 @@ public class Converter {
         }
     }
 
-    public static void main(String[] args) {
-        System.out.println(getPhoneNumberList().getPhoneNumbers().length);
-    }
 }

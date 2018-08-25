@@ -4,9 +4,9 @@ D__/
 build/
 .gradle/
 .DS_Store
-trade.iml
-trade.ipr
-trade.iws
+pScanner.iml
+pScanner.ipr
+pScanner.iws
 dependencies.txt
 out/
 application.properties

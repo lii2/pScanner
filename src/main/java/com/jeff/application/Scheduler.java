@@ -1,7 +1,5 @@
 package com.jeff.application;
 
-import com.jeff.application.rateLimiter.DailyRateLimiter;
-import com.jeff.application.timing.CalenderUtils;
 import com.jeff.clients.email.EmailClient;
 import com.jeff.clients.reddit.ChildData;
 import com.jeff.clients.reddit.RedditClient;
@@ -10,61 +8,71 @@ import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
+import java.util.TimeZone;
 
 @Component
 public class Scheduler {
-
-    Logger logger = LoggerFactory.getLogger("scheduler");
 
     private RedditClient redditClient = new RedditClient();
 
     private EmailClient emailClient = new EmailClient();
 
-    private DailyRateLimiter rateLimiter = new DailyRateLimiter(5);
-
-    // Every minute
-    @Scheduled(fixedDelay = 60000)
-    public void run() {
+    // Get rid of old posts from overnight
+    @Scheduled(cron = "0 0-29 9-10 ? * MON-FRI")
+    public void prescan() {
         try {
-            if (CalenderUtils.isPreMarket()) {
-                redditClient.preScan();
-            } else if (CalenderUtils.isRightHourAndDay()) {
-                searchAndNotify();
-            }
+            redditClient.preScan();
         } catch (Exception e) {
             Date date = new Date();
             System.out.println("Unknown error: " + date.toString());
-            logger.error("Unknown Error: " + date.toString(), e);
+        }
+    }
+
+
+    // Every minute in the first thirty minutes
+    @Scheduled(cron = "0 30-59 9-10 ? * MON-FRI")
+    public void firstThirtyMinutes() {
+        try {
+            searchAndNotify();
+
+        } catch (Exception e) {
+            Date date = new Date();
+            System.out.println("Unknown error: " + date.toString());
+        }
+    }
+
+    // Every minute during normal hourse other than the first 30 minutes
+    @Scheduled(cron = "0 * 10-16 ? * MON-FRI")
+    public void normalHours() {
+        try {
+            searchAndNotify();
+        } catch (Exception e) {
+            Date date = new Date();
+            System.out.println("Unknown error: " + date.toString());
         }
     }
 
     private void searchAndNotify() {
+
+        int numberOfSends = 0;
+
         redditClient.searchPennyStockData();
-
-        if (!redditClient.getNewPosts().isEmpty()){
-            logger.info(new Date().toString() + " new posts found: ");
-
+        if (!redditClient.getNewPosts().isEmpty()) {
+            System.out.println(new Date().toString() + " new posts found: ");
             for (Map.Entry<String, ChildData> entry : redditClient.getNewPosts().entrySet()) {
-
-                logger.info(entry.getKey());
-
-                if (rateLimiter.attemptAction(new Date())) {
+                System.out.println(entry.getKey());
+                if (numberOfSends < 5) {
                     emailClient.sendNotification(entry);
+                    numberOfSends++;
                 }
-
             }
         }
-
         redditClient.agePosts();
     }
 
-
-    public static void main(String[] args) {
-        Scheduler scheduler = new Scheduler();
-        scheduler.run();
-    }
 
 }
 
