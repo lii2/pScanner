@@ -1,5 +1,7 @@
 package com.jeff.application;
 
+import com.jeff.algorithmn.DataCollator;
+import com.jeff.algorithmn.DataProcessor;
 import com.jeff.clients.email.EmailClient;
 import com.jeff.clients.reddit.RedditClient;
 import com.jeff.clients.reddit.RedditQuery;
@@ -21,22 +23,20 @@ public class MainController {
     }
 
     @RequestMapping("/test")
-    public String test(@RequestParam(name="token", required=true) String name) {
+    public String test(@RequestParam(name="token") String name) {
 
         if(!name.equalsIgnoreCase(TEST_TOKEN))
             return "Access denied";
 
-        RedditClient redditClient = new RedditClient();
+        DataCollator dataCollator = new DataCollator();
 
-        String redditResult = redditClient.runQuery(RedditQuery.TEST_QUERY.getResource());
+        DataProcessor dataProcessor = new DataProcessor();
 
-        EmailClient emailClient = new EmailClient();
+        dataProcessor.addToOldPosts(dataCollator.getTestSignal());
 
-        String date = new Date().toString();
+        dataProcessor.sendEmails(dataCollator.getTestSignal());
 
-        emailClient.send(TEST_EMAIL, "test email " + date, redditResult);
-
-        return "test email sent " + date;
+        return "test email sent " + new Date().toString();
     }
 
 }

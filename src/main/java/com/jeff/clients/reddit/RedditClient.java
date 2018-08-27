@@ -31,7 +31,7 @@ public class RedditClient implements Client {
         return getResponse(query.getResource());
     }
 
-    private RedditResponse getResponse(String query) {
+    public RedditResponse getResponse(String query) {
         HttpEntity<String> entity = createEntity();
         RestTemplate restTemplate = new RestTemplate();
         RedditResponse redditResponse = null;
