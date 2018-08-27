@@ -1,9 +1,10 @@
 package com.jeff.clients.reddit.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.jeff.clients.ApiResponse;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class RedditResult
+public class RedditResponse implements ApiResponse
 {
 
     private Data data;

@@ -1,6 +1,7 @@
 package com.jeff.application;
 
 import com.jeff.algorithmn.DataCollator;
+import com.jeff.algorithmn.DataProcessor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
@@ -26,6 +27,11 @@ public class AppContext extends WebMvcConfigurationSupport {
     @Bean
     public DataCollator dataCollator() {
         return new DataCollator();
+    }
+
+    @Bean
+    public DataProcessor dataProcessor() {
+        return new DataProcessor();
     }
 
 }

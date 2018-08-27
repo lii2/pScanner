@@ -1,43 +1,41 @@
 package com.jeff.algorithmn;
 
 import com.jeff.clients.email.EmailClient;
+import com.jeff.clients.reddit.RedditQuery;
 import com.jeff.clients.reddit.RedditClient;
-import com.jeff.clients.reddit.model.ChildData;
+import com.jeff.clients.reddit.model.RedditResponse;
 
-import java.util.Date;
-import java.util.Map;
+import java.util.ArrayList;
 
 public class DataCollator {
 
     private RedditClient redditClient;
 
-    private EmailClient emailClient;
-
-    public DataCollator(){
+    public DataCollator() {
         redditClient = new RedditClient();
-        emailClient = new EmailClient();
     }
 
-    public void getPreMarketData(){
-        redditClient.preScan();
-    }
+    public ArrayList<RedditResponse> getPreMarketData() {
 
-    public void searchAndNotify() {
+        ArrayList<RedditResponse> responseArrayList = new ArrayList<>();
 
-        int numberOfSends = 0;
-
-        redditClient.searchPennyStockData();
-        if (!redditClient.getNewPosts().isEmpty()) {
-            System.out.println(new Date().toString() + " new posts found: ");
-            for (Map.Entry<String, ChildData> entry : redditClient.getNewPosts().entrySet()) {
-                System.out.println(entry.getKey());
-                if (numberOfSends < 5) {
-                    emailClient.sendNotification(entry);
-                    numberOfSends++;
-                }
-            }
+        for (RedditQuery query : RedditQuery.values()) {
+            responseArrayList.add(redditClient.makeQuery(query));
         }
-        redditClient.agePosts();
+
+        return responseArrayList;
+    }
+
+    public ArrayList<RedditResponse> getNewSignals() {
+
+        ArrayList<RedditResponse> responseArrayList = new ArrayList<>();
+
+        for (RedditQuery query : RedditQuery.values()) {
+
+            responseArrayList.add(redditClient.makeQuery(query));
+
+        }
+        return responseArrayList;
     }
 
 }

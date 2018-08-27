@@ -1,6 +1,7 @@
 package com.jeff.application;
 
 import com.jeff.algorithmn.DataCollator;
+import com.jeff.algorithmn.DataProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -13,24 +14,25 @@ public class Scheduler {
     @Autowired
     private DataCollator dataCollator;
 
-    // Get rid of old posts from overnight
+    @Autowired
+    private DataProcessor dataProcessor;
+
+    // Get rid of old hits from overnight
     @Scheduled(cron = "* 0-29 9-10 * * MON-FRI")
     public void preMarketCleaning() {
         try {
-           dataCollator.getPreMarketData();
+            dataProcessor.addToOldPosts(dataCollator.getPreMarketData());
         } catch (Exception e) {
             Date date = new Date();
             System.out.println("Unknown error: " + date.toString());
         }
     }
 
-
     // Every minute in the first thirty minutes
     @Scheduled(cron = "0 30-59 9-10 * * MON-FRI")
     public void firstThirtyMinutes() {
         try {
-            dataCollator.searchAndNotify();
-
+            dataProcessor.sendEmails(dataCollator.getNewSignals());
         } catch (Exception e) {
             Date date = new Date();
             System.out.println("Unknown error: " + date.toString());
@@ -41,7 +43,7 @@ public class Scheduler {
     @Scheduled(cron = "* * 10-16 * * MON-FRI")
     public void normalHours() {
         try {
-            dataCollator.searchAndNotify();
+            dataProcessor.sendEmails(dataCollator.getNewSignals());
         } catch (Exception e) {
             Date date = new Date();
             System.out.println("Unknown error: " + date.toString());

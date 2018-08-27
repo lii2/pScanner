@@ -13,7 +13,7 @@ public class EmailClient implements Client {
 
     private Properties props;
 
-    public EmailClient(){
+    public EmailClient() {
         props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
@@ -80,17 +80,22 @@ public class EmailClient implements Client {
 
     public void sendNotifications(HashMap<String, ChildData> newPosts) {
 
-            for (Map.Entry<String, ChildData> entry : newPosts.entrySet()) {
-                System.out.println("Found new Run: " + entry.getValue().getTitle() + " " + entry.getValue().getURL());
-                send(getAllAddresses(),
-                        entry.getValue().getTitle() + ": " + entry.getValue().getNum_comments(), entry.getValue().getURL());
-            }
+        for (Map.Entry<String, ChildData> entry : newPosts.entrySet()) {
+            System.out.println("Found new Signal: " + entry.getValue().getTitle() + " " + entry.getValue().getURL());
+            send(getAllAddresses(),
+                    entry.getValue().getTitle() + ": " + entry.getValue().getNum_comments(), entry.getValue().getURL());
+        }
 
     }
 
-    public void sendNotification(Map.Entry<String, ChildData> entry){
+    public void sendNotification(Map.Entry<String, ChildData> entry) {
         System.out.println("Found new Run: " + entry.getValue().getTitle() + " " + entry.getValue().getURL());
         send(getAllAddresses(),
                 entry.getValue().getTitle() + ": " + entry.getValue().getNum_comments(), entry.getValue().getURL());
+    }
+
+    public void sendAll(String subject, String body) {
+        System.out.println("Sending Email to all on list: " + subject + " " + body);
+        send(getAllAddresses(), subject, body);
     }
 }

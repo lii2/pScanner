@@ -2,11 +2,8 @@ package com.jeff.clients.reddit;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jeff.application.configuration.ConfigConstants;
-import com.jeff.application.configuration.Converter;
 import com.jeff.clients.Client;
-import com.jeff.clients.reddit.model.ChildData;
-import com.jeff.clients.reddit.model.Children;
-import com.jeff.clients.reddit.model.RedditResult;
+import com.jeff.clients.reddit.model.RedditResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.*;
@@ -22,36 +19,27 @@ public class RedditClient implements Client {
 
     Logger logger = LoggerFactory.getLogger("scheduler");
 
-    private HashMap<String, ChildData> newPosts;
     private ObjectMapper mapper;
-    private List<String> oldPosts;
 
     public RedditClient() {
-        newPosts = new HashMap<>();
+
         mapper = new ObjectMapper();
-        oldPosts = Converter.getOldPosts();
+
     }
 
-    public void searchPennyStockData() {
-        addNewPosts(RedditQueries.RUNNING_QUERY);
-        addNewPosts(RedditQueries.HALTED_QUERY);
+    public RedditResponse makeQuery(RedditQuery query) {
+        return getResponse(query.getResource());
     }
 
-    private void addNewPosts(String query) {
+    private RedditResponse getResponse(String query) {
         HttpEntity<String> entity = createEntity();
         RestTemplate restTemplate = new RestTemplate();
-
+        RedditResponse redditResponse = null;
 
         try {
             //JSON from String to Object
             ResponseEntity result = restTemplate.exchange(query, HttpMethod.GET, entity, String.class);
-            RedditResult redditResult = mapper.readValue(result.getBody().toString(), RedditResult.class);
-
-            for (Children child : redditResult.getData().getChildren()) {
-                if (!oldPosts.contains(child.getData().getTitle())) {
-                    newPosts.put(child.getData().getTitle(), child.getData());
-                }
-            }
+            redditResponse = mapper.readValue(result.getBody().toString(), RedditResponse.class);
 
         } catch (IOException e) {
             System.out.println("IOException thrown while mapping");
@@ -63,6 +51,7 @@ public class RedditClient implements Client {
             e.printStackTrace();
         }
 
+        return redditResponse;
     }
 
     public String runQuery(String query) {
@@ -73,27 +62,11 @@ public class RedditClient implements Client {
         return result.getBody().toString();
     }
 
-    public HashMap<String, ChildData> getNewPosts() {
-        return newPosts;
-    }
-
     private HttpEntity<String> createEntity() {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("User-Agent", ConfigConstants.USER_AGENT);
         return new HttpEntity<>("", httpHeaders);
     }
 
-    public void agePosts() {
-        for (String entry : newPosts.keySet()) {
-            Converter.addOldPost(entry);
-        }
-        newPosts.clear();
-        oldPosts = Converter.getOldPosts();
-    }
-
-    public void preScan() {
-        searchPennyStockData();
-        agePosts();
-    }
 
 }

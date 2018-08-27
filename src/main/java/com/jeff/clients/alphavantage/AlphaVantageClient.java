@@ -52,7 +52,7 @@ public class AlphaVantageClient implements Client {
 
         try {
             //JSON from String to Object
-            //  redditResult = mapper.readValue(result.getBody().toString(), RedditResult.class);
+            //  redditResult = mapper.readValue(result.getBody().toString(), RedditResponse.class);
             System.out.println("alpha vantage query complete");
         } catch (Exception e) {
             System.out.println("IOException thrown while mapping");
