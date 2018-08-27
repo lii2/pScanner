@@ -13,7 +13,7 @@ import java.util.concurrent.Executor;
 
 @SpringBootApplication
 @ComponentScan("com.jeff.application")
-@ComponentScan("com.jeff.clients.reddit")
+@ComponentScan("com.jeff.clients.*")
 @EnableScheduling
 @Configuration
 public class Application {
