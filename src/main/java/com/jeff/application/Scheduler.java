@@ -17,7 +17,7 @@ public class Scheduler {
     private EmailClient emailClient = new EmailClient();
 
     // Get rid of old posts from overnight
-    @Scheduled(cron = "0 0-29 9-10 ? * MON-FRI")
+    @Scheduled(cron = "* 0-29 9-10 * * MON-FRI")
     public void prescan() {
         try {
             redditClient.preScan();
@@ -29,7 +29,7 @@ public class Scheduler {
 
 
     // Every minute in the first thirty minutes
-    @Scheduled(cron = "0 30-59 9-10 ? * MON-FRI")
+    @Scheduled(cron = "0 30-59 9-10 * * MON-FRI")
     public void firstThirtyMinutes() {
         try {
             searchAndNotify();
@@ -40,8 +40,8 @@ public class Scheduler {
         }
     }
 
-    // Every minute during normal hourse other than the first 30 minutes
-    @Scheduled(cron = "0 * 10-16 ? * MON-FRI")
+    // Every minute during normal hours other than the first 30 minutes
+    @Scheduled(cron = "* * 10-16 * * MON-FRI")
     public void normalHours() {
         try {
             searchAndNotify();
