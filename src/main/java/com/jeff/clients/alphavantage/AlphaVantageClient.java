@@ -2,7 +2,6 @@ package com.jeff.clients.alphavantage;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jeff.clients.Client;
-import com.jeff.clients.reddit.ChildData;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -10,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.HashMap;
 import java.util.List;
 
 import javax.net.ssl.SSLContext;

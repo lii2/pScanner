@@ -2,7 +2,8 @@ package com.jeff.clients.email;
 
 import com.jeff.application.configuration.ConfigConstants;
 import com.jeff.clients.Client;
-import com.jeff.clients.reddit.ChildData;
+import com.jeff.clients.email.model.PhoneNumber;
+import com.jeff.clients.reddit.model.ChildData;
 
 import java.util.*;
 import javax.mail.*;

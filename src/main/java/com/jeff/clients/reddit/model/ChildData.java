@@ -1,4 +1,4 @@
-package com.jeff.clients.reddit;
+package com.jeff.clients.reddit.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

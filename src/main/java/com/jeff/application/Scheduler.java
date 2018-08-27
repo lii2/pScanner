@@ -1,17 +1,13 @@
 package com.jeff.application;
 
 import com.jeff.clients.email.EmailClient;
-import com.jeff.clients.reddit.ChildData;
+import com.jeff.clients.reddit.model.ChildData;
 import com.jeff.clients.reddit.RedditClient;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
-import java.util.TimeZone;
 
 @Component
 public class Scheduler {

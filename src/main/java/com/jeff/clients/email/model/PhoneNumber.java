@@ -1,6 +1,7 @@
-package com.jeff.clients.email;
+package com.jeff.clients.email.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.jeff.clients.email.Carrier;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PhoneNumber {
