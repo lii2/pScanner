@@ -18,7 +18,7 @@ public class Scheduler {
     private DataProcessor dataProcessor;
 
     // Get rid of old hits from overnight
-    @Scheduled(cron = "* 0-29 9-10 * * MON-FRI")
+    @Scheduled(cron = "0 0-29 9-10 * * MON-FRI")
     public void preMarketCleaning() {
         try {
             dataProcessor.addToOldPosts(dataCollator.getPreMarketData());
@@ -28,8 +28,8 @@ public class Scheduler {
         }
     }
 
-    // Every minute in the first thirty minutes
-    @Scheduled(cron = "0 30-59 9-10 * * MON-FRI")
+    // Every  ten seconds in the first thirty minutes
+    @Scheduled(cron = "*/10 30-59 9-10 * * MON-FRI")
     public void firstThirtyMinutes() {
         try {
             dataProcessor.sendEmails(dataCollator.getNewSignals());
@@ -39,8 +39,8 @@ public class Scheduler {
         }
     }
 
-    // Every minute during normal hours other than the first 30 minutes
-    @Scheduled(cron = "* * 10-16 * * MON-FRI")
+    // Every ten seconds during normal hours other than the first 30 minutes
+    @Scheduled(cron = "*/10 * 10-16 * * MON-FRI")
     public void normalHours() {
         try {
             dataProcessor.sendEmails(dataCollator.getNewSignals());
