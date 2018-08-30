@@ -1,7 +1,7 @@
 package com.jeff.application;
 
-import com.jeff.algorithmn.DataCollator;
-import com.jeff.algorithmn.DataProcessor;
+import com.jeff.algorithm.DataCollator;
+import com.jeff.algorithm.DataProcessor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;

@@ -1,9 +1,7 @@
-package com.jeff.algorithmn;
+package com.jeff.algorithm;
 
 import com.jeff.application.configuration.Converter;
-import com.jeff.clients.ApiResponse;
 import com.jeff.clients.email.EmailClient;
-import com.jeff.clients.reddit.model.ChildData;
 import com.jeff.clients.reddit.model.Children;
 import com.jeff.clients.reddit.model.RedditResponse;
 

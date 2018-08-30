@@ -1,6 +1,5 @@
-package com.jeff.algorithmn;
+package com.jeff.algorithm;
 
-import com.jeff.clients.email.EmailClient;
 import com.jeff.clients.email.TestQuery;
 import com.jeff.clients.reddit.RedditQuery;
 import com.jeff.clients.reddit.RedditClient;

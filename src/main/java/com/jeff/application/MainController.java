@@ -1,17 +1,13 @@
 package com.jeff.application;
 
-import com.jeff.algorithmn.DataCollator;
-import com.jeff.algorithmn.DataProcessor;
-import com.jeff.clients.email.EmailClient;
-import com.jeff.clients.reddit.RedditClient;
-import com.jeff.clients.reddit.RedditQuery;
+import com.jeff.algorithm.DataCollator;
+import com.jeff.algorithm.DataProcessor;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Date;
 
-import static com.jeff.application.configuration.ConfigConstants.TEST_EMAIL;
 import static com.jeff.application.configuration.ConfigConstants.TEST_TOKEN;
 
 @RestController
