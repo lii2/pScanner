@@ -2,6 +2,7 @@ package com.jeff.application;
 
 import com.jeff.algorithm.DataCollator;
 import com.jeff.algorithm.DataProcessor;
+import com.jeff.database.CoreRepository;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,9 +29,9 @@ public class MainController {
 
         DataProcessor dataProcessor = new DataProcessor();
 
-        dataProcessor.addToOldPosts(dataCollator.getTestSignal());
+        CoreRepository.addAllToOldPosts(dataCollator.getTestSignal());
 
-        dataProcessor.sendEmails(dataCollator.getTestSignal());
+        dataProcessor.process(dataCollator.getTestSignal());
 
         return "test email sent " + new Date().toString();
     }

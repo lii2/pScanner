@@ -2,6 +2,7 @@ package com.jeff.application;
 
 import com.jeff.algorithm.DataCollator;
 import com.jeff.algorithm.DataProcessor;
+import com.jeff.clients.email.EmailClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
@@ -32,6 +33,11 @@ public class AppContext extends WebMvcConfigurationSupport {
     @Bean
     public DataProcessor dataProcessor() {
         return new DataProcessor();
+    }
+
+    @Bean
+    public EmailClient emailClient() {
+        return new EmailClient();
     }
 
 }
