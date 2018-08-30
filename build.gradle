@@ -43,7 +43,3 @@ dependencies {
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.5'
 
 }
-
-test.onlyIf {
-    Boolean.getBoolean("doTest")
-}

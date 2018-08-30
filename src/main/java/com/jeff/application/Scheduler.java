@@ -39,8 +39,8 @@ public class Scheduler {
         }
     }
 
-    // Every ten seconds during normal hours other than the first 30 minutes
-    @Scheduled(cron = "*/10 * 10-16 * * MON-FRI")
+    // Every minute during normal hours other than the first 30 minutes
+    @Scheduled(cron = "* * 10-16 * * MON-FRI")
     public void normalHours() {
         try {
             dataProcessor.sendEmails(dataCollator.getNewSignals());
