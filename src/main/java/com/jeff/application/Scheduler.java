@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.TimeZone;
 
 @Component
 public class Scheduler {
@@ -26,7 +27,7 @@ public class Scheduler {
     private EmailClient emailClient;
 
     // Get rid of old hits from overnight
-    @Scheduled(cron = "0 0-29 9-10 * * MON-FRI")
+    @Scheduled(cron = "0 0-29 9-10 * * MON-FRI", zone = "America/New_York")
     public void preMarketCleaning() {
         try {
             CoreRepository.addAllToOldPosts(dataCollator.getPreMarketData());
@@ -37,7 +38,7 @@ public class Scheduler {
     }
 
     // Every  ten seconds in the first thirty minutes
-    @Scheduled(cron = "*/10 30-59 9-10 * * MON-FRI")
+    @Scheduled(cron = "*/10 30-59 9-10 * * MON-FRI", zone = "America/New_York")
     public void firstThirtyMinutes() {
         try {
             ArrayList<RedditResponse> responseArrayList = dataProcessor.process(dataCollator.getNewSignals());
@@ -55,7 +56,7 @@ public class Scheduler {
     }
 
     // Every minute during normal hours other than the first 30 minutes
-    @Scheduled(cron = "* * 10-16 * * MON-FRI")
+    @Scheduled(cron = "* * 10-16 * * MON-FRI", zone = "America/New_York")
     public void normalHours() {
         try {
             ArrayList<RedditResponse> responseArrayList = dataProcessor.process(dataCollator.getNewSignals());
